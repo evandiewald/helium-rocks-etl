@@ -2,7 +2,7 @@ import json
 from serialization_utils import serialize_hash, deserialize_hash
 import sqlalchemy.exc
 from sqlalchemy.engine import Engine
-from db import TransactionsDBReader, BlockchainDBReader
+from db import TransactionsDBReader
 from typing import Literal
 import os
 from pathlib import Path
