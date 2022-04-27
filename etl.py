@@ -36,8 +36,9 @@ parser.add_argument("command",
 
 args = parser.parse_args()
 
-match args.command:
-    case "migrate":
-        migrate(Base, engine)
-    case "start":
-        start(engine, config)
+if args.command == "migrate":
+    migrate(Base, engine)
+elif args.command == "start":
+    start(engine, config)
+else:
+    raise ValueError(f"Unknown command: {args.command}")
