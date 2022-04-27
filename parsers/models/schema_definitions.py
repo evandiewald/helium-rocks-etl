@@ -89,3 +89,13 @@ class PaymentsParsed(Base):
     payer = Column(Text)
     payee = Column(Text, primary_key=True)
     amount = Column(BigInteger)
+
+
+class GatewayInventory(Base):
+    __tablename__ = "gateway_inventory"
+
+    address = Column(Text, primary_key=True, nullable=False)
+    owner = Column(Text, nullable=False)
+    location = Column(Text)
+    last_poc_challenge = Column(BigInteger)
+    last_poc_onion_key

@@ -52,6 +52,10 @@ class Follower:
             case ("payment_v1" | "payment_v2"):
                 if "payments" in self.config.parsers:
                     PaymentParser(transaction).insert(self.session)
+            case "add_gateway_v1":
+                print(transaction)
+            case ("assert_location_v1" | "assert_location_v2"):
+                print(transaction)
 
     def load_block(self, height: int):
         for txn_key in self.transactions_by_block[height]:
