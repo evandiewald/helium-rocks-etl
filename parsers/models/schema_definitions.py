@@ -98,4 +98,3 @@ class GatewayInventory(Base):
     owner = Column(Text, nullable=False)
     location = Column(Text)
     last_poc_challenge = Column(BigInteger)
-    last_poc_onion_key
