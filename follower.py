@@ -25,7 +25,7 @@ class Follower:
         self.current_height = self.transactions.current_height()
         self.first_block = self.transactions.first_block()
         self.sync_height = self.load_sync_height()
-        self.transactions_by_block = self.transactions.transaction_keys_by_block()
+        self.transactions_by_block = {}
         self.config = config
 
     def load_sync_height(self):
