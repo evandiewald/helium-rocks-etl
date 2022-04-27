@@ -45,17 +45,16 @@ class Follower:
     def process_transaction(self, transaction: dict):
         if (self.config.transactions_config.mode == "full") or (transaction["type"] in self.config.transactions_config.include_types):
             TransactionParser(transaction).insert(self.session, self.config.transactions_config.with_fields)
-        match transaction["type"]:
-            case "poc_receipts_v1":
-                if "challenge_receipts" in self.config.parsers:
-                    ChallengeReceiptParser(transaction).insert(self.session)
-            case ("payment_v1" | "payment_v2"):
-                if "payments" in self.config.parsers:
-                    PaymentParser(transaction).insert(self.session)
-            case "add_gateway_v1":
-                print(transaction)
-            case ("assert_location_v1" | "assert_location_v2"):
-                print(transaction)
+        if transaction["type"] == "poc_receipts_v1":
+            if "challenge_receipts" in self.config.parsers:
+                ChallengeReceiptParser(transaction).insert(self.session)
+        elif transaction["type"] in ["payment_v1", "payment_v2"]:
+            if "payments" in self.config.parsers:
+                PaymentParser(transaction).insert(self.session)
+        elif transaction["type"] == "add_gateway_v1":
+            print(transaction)
+        elif transaction["type"] in ["assert_location_v1", "assert_location_v2"]:
+            print(transaction)
 
     def load_block(self, height: int):
         for txn_key in self.transactions_by_block[height]:
