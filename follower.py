@@ -23,16 +23,16 @@ class Follower:
         self.session = Session()
         self.transactions = TransactionsDBReader(rocks_path=self.rocks_path)
         self.current_height = self.transactions.current_height()
-        self.first_block = self.transactions.first_block() + 1
+        self.first_block = self.transactions.first_block()
         self.sync_height = self.load_sync_height()
-        self.transactions_by_block = {}
+        self.transactions_by_block = self.transactions.transaction_keys_by_block(None, self.first_block, self.sync_height)
         self.config = config
 
     def load_sync_height(self):
         try:
             sync_height = self.session.query(FollowerInfo.value).filter(FollowerInfo.name == "sync_height").one()[0]
         except sqlalchemy.exc.NoResultFound:
-            sync_height = self.first_block
+            sync_height = self.first_block + 1
             self.session.add(FollowerInfo(name="sync_height", value=self.first_block))
             self.session.commit()
         return sync_height

@@ -7,12 +7,12 @@ from python_pb import entry_v1_pb2
 import base58
 import json
 
-path = str("C:/Users/evand/node_data/transactions.db")
+path = str("/home/ubuntu/node_data/transactions.db")
 
 opt = Options(raw_mode=True)
 opt.set_error_if_exists(False)
 # create a Rdict with default options at `path`
-db = Rdict(path, options=opt, access_type=AccessType.secondary("C:/Users/evand/node_data/secondary"), column_families={"heights": Options(raw_mode=True),
+db = Rdict(path, options=opt, access_type=AccessType.secondary("/home/ubuntu/node_data/secondary"), column_families={"heights": Options(raw_mode=True),
                                                                   "transactions": Options(raw_mode=True),
                                                                   "json": Options(raw_mode=True)})
 
