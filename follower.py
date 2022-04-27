@@ -23,7 +23,7 @@ class Follower:
         self.session = Session()
         self.transactions = TransactionsDBReader(rocks_path=self.rocks_path)
         self.current_height = self.transactions.current_height()
-        self.first_block = self.transactions.first_block()
+        self.first_block = self.transactions.first_block() + 1
         self.sync_height = self.load_sync_height()
         self.transactions_by_block = {}
         self.config = config
