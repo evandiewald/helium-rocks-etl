@@ -98,7 +98,7 @@ class TransactionsDBReader(RocksDB):
     def current_height(self) -> int:
         return max(self.heights_values_as_bigint())
 
-    def transaction_keys_by_block(self, txns_by_block=Union[None, dict[int, List[bytes]]], start_height=Optional[int], end_height=Optional[int]) -> dict[int, List[bytes]]:
+    def transaction_keys_by_block(self, txns_by_block, start_height=Optional[int], end_height=Optional[int]):
         """We have to reverse-index the heights column family in order to get transaction keys by block."""
         heights_keys, heights_values = self.heights_keys(), self.heights_values_as_bigint()
         if (start_height is int) and (end_height is int) and txns_by_block:
